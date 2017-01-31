@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Find a Bus</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+<h1>Find a bus</h1>
+<p> ${status}</p>
+<form action="user_find_bus.html" method="GET">
+    Station A:
+    <select name="stationA">
+        <#list stations as station>
+            <option>${station}</option>
+        </#list>
+    </select>
+    <br>
+
+    Station B:
+    <select name="stationB">
+        <#list stations as station>
+            <option>${station}</option>
+        </#list>
+    </select>
+    <br>
+
+    From: <input name="time_begin" type="time">
+    To: <input name="time_end" type="time"> <br>
+    <input type="submit" value="Find a bus"><br>
+    <a href="user_menu.html">Back to menu</a>
+</form>
+
+
+
+<#if listOfTimetables??>
+    <h4> We found: </h4>
+    <#list listOfTimetables as timetable>
+        <h5> BUS #${timetable.bus.id}. ${timetable.bus.seats} free seats.
+            From ${timetable.bus.stationA.name} to ${timetable.bus.stationB.name}.
+            Time: ${timetable.time?time} <a id="buy${timetable.id}" style="color: red"> Buy a ticket </a>
+        </h5>
+        <script type="text/javascript">
+            $('#buy${timetable.id}').on("click", function () {
+                $.ajax({
+                    url: 'user_find_bus.html/buy',
+                    type: 'POST',
+                    data: {
+                        'timetable': '${timetable.id}'
+                    },
+                    success: function (result) {
+                        document.open();
+                        document.write(result);
+                        document.close();
+                    }
+                })
+            })
+        </script>
+    </#list>
+
+    <#else>
+        <h2>There is no buses for this query.</h2>
+</#if>
+</body>
+</html>

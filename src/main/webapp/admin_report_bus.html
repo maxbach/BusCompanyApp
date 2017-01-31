@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Report of trip</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+<h1>Report of trip</h1>
+Bus:
+<select class="chooseBus" name="bus">
+    <#if !selectedBus??>
+        <option disabled selected value> -- select a bus --</option>
+    </#if>
+
+    <#list listOfBuses as bus>
+        <#if selectedBus?? && bus.id==selectedBus>
+            <option value="${bus.id}" selected>${bus.id} (${bus.stationA.name} - ${bus.stationB.name})</option>
+            <#else>
+                <option value="${bus.id}">${bus.id} (${bus.stationA.name} - ${bus.stationB.name})</option>
+        </#if>
+    </#list>
+</select>
+<br>
+
+<#if listOfTimes?has_content>
+    Time:
+    <select class="chooseTime" name="time">
+        <#if !selectedTime??>
+            <option disabled selected value> -- select a time --</option>
+        </#if>
+        <#list listOfTimes as timetable>
+            <#if selectedTime?? && timetable.id==selectedTime>
+                <option value="${timetable.id}" selected>${timetable.time?time}</option>
+                <#else>
+                    <option value="${timetable.id}">${timetable.time?time}</option>
+            </#if>
+        </#list>
+    </select>
+    <br>
+</#if>
+
+<#if listOfUsers?has_content>
+    <ol>
+        <h4> We found: </h4>
+        <#list listOfUsers as user>
+            <li> ${user.firstName} ${user.secondName}</li>
+        </#list>
+    </ol>
+
+    <#else>
+        <h5>No passengers.</h5>
+</#if>
+
+<script type="text/javascript">
+    $(".chooseBus").on("change", function () {
+        $.ajax({
+            url: 'admin_report_bus.html',
+            type: 'GET',
+            data: {
+                'bus': $(".chooseBus option:selected").text()
+            },
+            success: function (result) {
+                document.open();
+                document.write(result);
+                document.close();
+            }
+        })
+    });
+
+    $(".chooseTime").on("change", function () {
+        $.ajax({
+            url: 'admin_report_bus.html',
+            type: 'GET',
+            data: {
+                'bus': $(".chooseBus option:selected").text(),
+                'time': $(".chooseTime option:selected").text()
+            },
+            success: function (result) {
+                document.open();
+                document.write(result);
+                document.close();
+            }
+        })
+    })
+</script>
+<a href="admin_menu.html">Back to menu</a>
+</body>
+</html>

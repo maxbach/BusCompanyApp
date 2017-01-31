@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin menu</title>
+</head>
+<body>
+<h1>Admin main page</h1>
+<p>Welcome back, ${name}</p>
+<h3>Menu:</h3>
+<h4> <a href="admin_add_station.html">Stations</a></h4>
+<h4> <a href="admin_add_bus.html">Buses</a></h4>
+<h4> <a href="admin_add_timetable.html">Timetables</a></h4>
+<h4> <a href="admin_report_bus.html">Watch passengers </a></h4>
+<br>
+
+<a class="exit" onclick="onClickExit()" href="login.html">Exit</a>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    onClickExit = function () {
+        $.ajax({
+            url: '/login.html',
+            type: 'DELETE',
+            success: function(result) {
+                // Do something with the result
+            }
+        });
+    }
+</script>
+</body>
+</html>

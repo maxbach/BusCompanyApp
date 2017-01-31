@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Timetable of station</title>
+</head>
+<body>
+<h1>Timetable of station</h1>
+<p>${status}</p>
+<form action="user_station_timetable.html" method="GET">
+
+    Station:
+    <select name="station">
+        <option disabled selected value> -- select a station --</option>
+        <#list stations as station>
+            <option>${station}</option>
+        </#list>
+    </select>
+
+    <input type="submit" value="Find timetable"><br>
+
+</form>
+
+
+<#if timetables?has_content>
+    <table border="1">
+        <br>
+        <tr>
+            <th>Bus number</th>
+            <th>Times of departure</th>
+        </tr>
+        <#list timetables as busT>
+            <#if busT?has_content>
+                <#assign bus=busT?first/>
+                <tr>
+                    <td>
+                        ${bus.bus.id} (${bus.bus.stationA.name}-${bus.bus.stationB.name})
+                    </td>
+                    <td>
+
+                        <#list busT as timetable>
+                            ${timetable.time?time}
+                        </#list>
+                    </td>
+                </tr>
+            </#if>
+        </#list>
+    </table>
+
+    <#else>
+        <h5>There is no timetable for this station</h5>
+</#if>
+<br>
+<a href="user_menu.html">Back to menu</a>
+
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Timetables</title>
+</head>
+<body>
+<h1>Timetables</h1>
+<p>${status}</p>
+<#if timetables?has_content>
+    <h3>Added timetables</h3>
+    <table border="1">
+        <tr>
+            <th>Bus number</th>
+            <th>Times of departure</th>
+        </tr>
+        <#list timetables as busT>
+            <#if busT?has_content>
+                <#assign bus=busT?first/>
+                <tr>
+                    <td>
+                        ${bus.bus.id} (${bus.bus.stationA.name}-${bus.bus.stationB.name})
+                    </td>
+                    <td>
+
+                        <#list busT as timetable>
+                            ${timetable.time?time}
+                        </#list>
+                    </td>
+                </tr>
+            </#if>
+        </#list>
+    </table>
+</#if>
+<br>
+<h3>Add new timetables</h3>
+<form action="admin_add_timetable.html" method="POST">
+    Bus:
+    <select name="bus">
+        <#list buses as bus>
+            <option value="${bus.id}">#${bus.id} (${bus.stationA.name} - ${bus.stationB.name})</option>
+        </#list>
+    </select>
+    <br>
+    <br>
+    <input name="mode" type="radio" id="mode_once" value="once" checked> Add one time
+    <input name="mode" type="radio" id="mode_multi" value="multi"> Add multiply
+    <br>
+
+    <div id="form_mode_once" style="display: block">
+        Time: <input name="once_time" type="time">
+
+    </div>
+
+    <div id="form_mode_multi" style="display: none">
+        From: <input name="multi_time_begin" type="time">
+        To: <input name="multi_time_end" type="time"> <br>
+        Interval: <input name="multi_interval" type="number"> minutes.
+    </div>
+    <br>
+
+    <script>
+        document.getElementById('mode_once').onclick = function () {
+            document.getElementById('form_mode_once').style.display = 'block';
+            document.getElementById('form_mode_multi').style.display = 'none';
+        };
+
+        document.getElementById('mode_multi').onclick = function () {
+            document.getElementById('form_mode_once').style.display = 'none';
+            document.getElementById('form_mode_multi').style.display = 'block';
+        }
+    </script>
+    <input type="submit" value="Add timetable"><br>
+
+
+</form>
+<br>
+<a href="admin_menu.html">Back to menu</a>
+
+
+</body>
+</html>

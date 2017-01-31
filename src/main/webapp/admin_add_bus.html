@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new bus</title>
+</head>
+<body>
+<h1>Buses</h1>
+<p>${status}</p>
+<#if buses?has_content>
+    <h3>Added buses:</h3>
+    <ol>
+        <#list buses as bus>
+            <li>
+                Bus #${bus.id} (${bus.stationA.name} - ${bus.stationB.name}) with ${bus.seats} seats
+            </li>
+        </#list>
+    </ol>
+</#if>
+<h3>Add new bus</h3>
+<form action="admin_add_bus.html" method="POST">
+    Bus number: <input type="number" name="numberOfBus"/><br>
+    Quanity of seats: <input type="number" name="quanitySeats"/><br>
+
+    Station From:
+    <select name="stationA">
+        <#list stations as station>
+            <option>${station}</option>
+        </#list>
+    </select>
+    <br>
+
+    Station To:
+    <select name="stationB">
+        <#list stations as station>
+            <option>${station}</option>
+        </#list>
+    </select>
+    <br>
+
+    <input type="submit" value="Add bus"><br><br>
+    <a href="admin_menu.html">Back to menu</a>
+</form>
+
+
+
+
+</body>
+</html>
