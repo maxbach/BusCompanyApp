@@ -20,8 +20,8 @@
 ### Скриншоты:
 
 #### Отчет администратора о пассажирах рейса
-<img src="https://github.com/maxbach/BusCompanyApp/blob/master/Screenshots/AdminReportOfTrip.png" width='400'> 
+![main screen](/Screenshots/AdminReportOfTrip.png)
 #### Страница администратора для добавления новых рейсов
-<img src="https://github.com/maxbach/BusCompanyApp/blob/master/Screenshots/AdminTimetableMenu.png" width='400'> 
+![main screen](/Screenshots/AdminTimetableMenu.png)
 #### Главное меню пассажира
-<img src="https://github.com/maxbach/BusCompanyApp/blob/master/Screenshots/UserMainPage.png" width='400'>
+![main screen](/Screenshots/UserMainPage.png)
